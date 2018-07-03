@@ -15,8 +15,8 @@ plantRoutes.get("/plants", (req, res, next) => {
 })
 
 plantRoutes.get("/plants/:id", (req, res, next) => {
-    //const {plant_id} = req.params;
-    console.log("plant id is" + req.params);
+    const {plant_id} = req.params;
+    res.send(plant_id)
 
 
     Plant.findById(plant_id)

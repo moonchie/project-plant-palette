@@ -8,7 +8,10 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-
+const session     = require("express-session");
+const MongoStore  = require("connect-mongo")(session);
+const passportSetup = require("./passport/setup.js");
+const flash = require("connect-flash");
 
 mongoose.Promise = Promise;
 mongoose
@@ -44,21 +47,29 @@ app.set('view engine', 'hbs');
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
+// set up session
+app.use(session({
+  secret: "hello this is the secret",
+  saveUninitialized: true,
+  resave: true,
+  store: new MongoStore({ mongooseConnection: mongoose.connection})
+}));
+// set up passport
+passportSetup(app);
+app.use(flash());
 
 
-// default value for title local
+
 app.locals.title = 'Project - Plant Palette';
 
-
+// -> LINKING to routes
 
 const index = require('./routes/index');
 app.use('/', index);
 
-// Link auth-routers
 const authRouter = require("./routes/auth-router");
-app.use("/", authRouter)
+app.use("/", authRouter);
 
-// Link plantRoutes
 const plantRouter = require("./routes/plant-router");
 app.use("/", plantRouter)
 

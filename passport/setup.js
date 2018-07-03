@@ -1,5 +1,6 @@
 const passport = require("passport");
 const User = require("../models/user-model.js");
+const flash = require("connect-flash");
 
 
 passport.serializeUser((userDoc, done) => {
@@ -21,20 +22,16 @@ passport.deserializeUser((idFromSession, done) =>{
 })
 
 function passportSetup (app) {
-    // add Passport properties & methods to the req obkect in our routes
         app.use(passport.initialize());
         app.use(passport.session());
 
         app.use((req, res, next) => {
-            // make "req.user" accessible inside hbs files as "blahUser"
-            res.locals.blahUser = req.user;
-
-            // make flash messages accessible inside hbs files as "messages"
-            res.locals.messages = req.flash();
+            res.locals.logInUser = req.user;
+            //res.locals.messages = req.flash();
 
             next();
         })
     }
 
 
-    module.exports = passportSetup;
+module.exports = passportSetup;

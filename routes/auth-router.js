@@ -63,8 +63,10 @@ authRoutes.post("/process-login", (req, res, next) => {
                 res.redirect("/login");
                 return;
             } else {
-                // ------------- ERROR HERE!
                 req.login(user, () => {
+                    // message: you have logged in successfully!
+                    console.log("=================");
+                    console.log("You have logged in!")
                     res.redirect("/")
                 })
                 }
@@ -73,9 +75,67 @@ authRoutes.post("/process-login", (req, res, next) => {
     .catch((err) => {next(err)})
 })
 
+// <-------------- LOG OUT------------------------>
+authRoutes.get("/logout", (req, res, next) => {
+    req.logout();
+    console.log("You have logged out!");
+    // message: You have logged out successfully!
+    res.redirect("/");
+})
 
 
+
+// <------------------ SETTING ------------------->
+authRoutes.get("/settings", (req, res, next) => {
+    // check if user is logged in
+    res.render("auth-views/settings.hbs")
+})
+
+authRoutes.post("/change-username", (req, res, next) =>{
+    const {newName} = req.body;
+    const userID = req.user._id;
+
+    User.findById(userID, function (err, user) {
+        if (err) next(err);
+
+        user._id = newName;
+        user.save(function (err, updatedUser) {
+          if (err) next(err);
+          // message: user name updated!
+          console.log("User name update successfully!!");
+          res.redirect("/")
+        });
+      });
+})
+
+authRoutes.post("/change-password", (req, res, next) => {
+    const {newPassword} = req.body;
+    const newEncryptedPass = bcrypt.hashSync(newPassword, 10)
+    const oldPassword = req.user.encryptedPassword;
+    const userID = req.user._id;
+
+    res.send(newPassword);
+
+    // if new and old password match
+  if(!bcrypt.compareSync(oldPassword, newEncryptedPass)){
+
+    User.findById(userID, function (err, user) {
+        if (err) next(err);
+
+        user.encryptedPassword  = newEncryptedPass;
+        user.save(function (err, updatedUser) {
+          if (err) next(err);
+          // message: user password updated!
+          res.send(updatedUser);
+          console.log("User password update successfully!!");
+          res.redirect("/")
+        });
+      });
+    } else {
+        res.redirect("/settings")
+    }
+})
+
+
+// <------------- Export AuthRoutes -----------------
 module.exports= authRoutes;
-
-
-
