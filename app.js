@@ -37,7 +37,7 @@ app.use(require('node-sass-middleware')({
   dest: path.join(__dirname, 'public'),
   sourceMap: true
 }));
-      
+
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'hbs');
@@ -47,12 +47,20 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 
 
 // default value for title local
-app.locals.title = 'Express - Generated with IronGenerator';
+app.locals.title = 'Project - Plant Palette';
 
 
 
 const index = require('./routes/index');
 app.use('/', index);
+
+// Link auth-routers
+const authRouter = require("./routes/auth-router");
+app.use("/", authRouter)
+
+// Link plantRoutes
+const plantRouter = require("./routes/plant-router");
+app.use("/", plantRouter)
 
 
 module.exports = app;

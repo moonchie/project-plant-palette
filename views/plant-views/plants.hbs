@@ -1,0 +1,15 @@
+<h2>All plants</h2>
+
+
+<ul>
+{{#each plants}}
+    <li>
+        <h4>Common name: {{this.commonName}}</h3>
+        <p>Scientific name: {{this.scientificName}}</p>
+        {{#each this.plantType}}
+        <p>{{this}}</p>
+        {{/each}}
+        <a href="/plants/{{this._id}}">see details</a>
+    </li>
+{{/each}}
+</ul>

@@ -1,0 +1,14 @@
+<h2>{{plant.commonName}}</h2>
+
+<h4>Scientific Name: {{plant.scientificName}}</h4>
+<h4>Zone: {{plant.zoneMin}} to {{Oneplant.zoneMax}}</h4>
+<p>Water: {{#each plant.water}}
+    {{this}}
+    {{/each}}
+</p>
+<p>Sun: {{#each plant.sun}}
+    {{this}}
+    {{/each}}
+</p>
+<p>Growth Rate: {{plant.growthRate}}</p>
+<p>Description: {{plant.info}}</p>
