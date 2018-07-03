@@ -26,8 +26,6 @@ plantRoutes.get("/plants/:id", (req, res, next) => {
         //res.render("plant-views/plant-details.hbs", {plant})
     })
     .catch((err) => {next(err)})
-
-
 })
 
 module.exports= plantRoutes;
