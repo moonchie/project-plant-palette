@@ -23,7 +23,8 @@ const plantSchema = new Schema ({
   maxHeightInFeet: { type: Number },
   maxWidthInFeet: { type: Number },
   info: { type: String, required: true },
-  sourceInfo: { type: String }
+  sourceInfo: { type: String },
+  pictureUrl: { type: String}
 }, {
   // additional settings for schema here
   timestamps: true
