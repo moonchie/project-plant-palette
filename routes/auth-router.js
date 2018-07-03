@@ -67,7 +67,7 @@ authRoutes.post("/process-login", (req, res, next) => {
                     // message: you have logged in successfully!
                     console.log("=================");
                     console.log("You have logged in!")
-                    res.redirect("/")
+                    res.redirect("/center")
                 })
                 }
             }
@@ -103,7 +103,7 @@ authRoutes.post("/change-username", (req, res, next) =>{
           if (err) next(err);
           // message: user name updated!
           console.log("User name update successfully!!");
-          res.redirect("/")
+          res.redirect("/center")
         });
       });
 })

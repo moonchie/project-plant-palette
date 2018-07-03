@@ -6,4 +6,7 @@ router.get('/', (req, res, next) => {
   res.render('index.hbs');
 });
 
+router.post("/search/:keyword")
+
+
 module.exports = router;

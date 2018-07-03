@@ -15,15 +15,15 @@ plantRoutes.get("/plants", (req, res, next) => {
 })
 
 plantRoutes.get("/plants/:id", (req, res, next) => {
-    const {plant_id} = req.params;
-    res.send(plant_id)
+    const plant_id = req.params.id;
+    //res.send(plant_id)
 
 
     Plant.findById(plant_id)
     .then((plant) => {
-        res.send(plant);
+        //res.send(plant);
         res.locals.plant = plant;
-        //res.render("plant-views/plant-details.hbs", {plant})
+        res.render("plant-views/plant-details.hbs", {plant})
     })
     .catch((err) => {next(err)})
 })

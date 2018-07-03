@@ -1,6 +1,7 @@
 <h2>{{plant.commonName}}</h2>
 
 <h4>Scientific Name: {{plant.scientificName}}</h4>
+<img src="{{plant.pictureUrl}}" />
 <h4>Zone: {{plant.zoneMin}} to {{Oneplant.zoneMax}}</h4>
 <p>Water: {{#each plant.water}}
     {{this}}
@@ -12,3 +13,9 @@
 </p>
 <p>Growth Rate: {{plant.growthRate}}</p>
 <p>Description: {{plant.info}}</p>
+
+<nav>
+    <a href="/center">Save to favourites</a>
+    <a href="/plants">Return</a>
+    <button><a href="/center">Save to project</a></button>
+</nav>

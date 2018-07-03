@@ -1,0 +1,16 @@
+<h2>{{project.projectName}}</h2>
+
+<p style="color:brown">Description of the project:</p>
+<p>{{project.projectDescription}}</p>
+
+<p style="color:brown">Zone:</p>
+<p>{{project.location}}</p>
+
+<p style="color:brown">Plants:</p>
+{{#each project.plants}}
+    <li>{{this}}</li>
+{{/each}}
+
+<br />
+
+<a href="/center">Return to projects</a>

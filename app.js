@@ -71,7 +71,9 @@ const authRouter = require("./routes/auth-router");
 app.use("/", authRouter);
 
 const plantRouter = require("./routes/plant-router");
-app.use("/", plantRouter)
+app.use("/", plantRouter);
 
+const projectRouter = require("./routes/project-router");
+app.use("/", projectRouter);
 
 module.exports = app;
