@@ -2,7 +2,9 @@ const express = require("express");
 const plantRoutes = express.Router();
 const User = require("../models/user-model.js");
 const Plant = require("../models/plant-model.js");
-
+const Project = require("../models/project-model.js");
+const mongoose = require("mongoose");
+var tempPlant;
 
 // <---------- LISTS OF PLANTS -------------------------
 plantRoutes.get("/plants", (req, res, next) => {
@@ -28,4 +30,56 @@ plantRoutes.get("/plants/:id", (req, res, next) => {
     .catch((err) => {next(err)})
 })
 
+// <---------------ADD TO PROJECT-----------------------
+plantRoutes.get("/plants/:id/save", (req, res, next) => {
+    tempPlant = req.params;   // <--- This  is the plantID
+    console.log("=============");
+    console.log(tempPlant);
+
+    if(!req.user){
+        // message: please log in to add this plant to your project
+        res.redirect("/login")
+    } else {
+        const userID = req.user._id;
+        Project.find({userID:userID})
+            .then(projects => {
+                //res.send(projects)
+                res.render("project-views/temp-list-projects.hbs", {projects})
+            })
+            .catch((err) => {next(err)})
+    }
+})
+
+
+plantRoutes.post("/plants/save/:projectID", (req, res, next) => {
+    console.log("************");
+    console.log(tempPlant)     //<---- this is an object
+    //res.send(tempPlant.id);
+    const projectID = req.params.projectID;
+    const plantID = tempPlant.id;
+
+    Project.findByIdAndUpdate(
+        projectID,
+        { $push: {plantArray: {plantID}}}
+        )
+        .then((projects) =>
+        {res.send(projects)})
+        .catch((err) => next(err))
+
+    // use project ID to add tempPlant to array of objects
+    // Project.findByIdAndUpdate(
+    //     projectID,
+    //     { $push: {plantArray: {plantID}}},
+    //     { runValidators: true})
+    //     .then((projects) => {
+    //         console.log("Record update!" + tempPlant);
+    //       res.redirect(`/project/${projectID}`)
+    //     })
+    //     .catch((err) => {
+    //       next(err);
+    //     })
+})
+
+
+// <------------ Export plantRoutes ----------------------
 module.exports= plantRoutes;

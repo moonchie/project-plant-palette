@@ -6,12 +6,7 @@ const projectSchema = new Schema({
     projectDescription: {type: String},
     location: {type: String, required: true},
     userID: { type : "ObjectId", ref: "User", required:true},
-    plantArray: [
-        {
-            plantID: { type: String},
-            comments: {type: String}
-        }
-    ],
+    plantArray: [{ type: "ObjectId"}],
 },{
     timestamps: true
 });

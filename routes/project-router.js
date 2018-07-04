@@ -1,16 +1,15 @@
 const express = require("express");
-const projectRoutes = express.Router(); // this is the router object for project router sets
-
+const mongoose = require("mongoose");
+const projectRoutes = express.Router();
 const Project = require("../models/project-model.js");
 
 // <------- USER CENTER------->
 projectRoutes.get("/center", (req, res, next) => {
-const userID = req.user._id;
-//res.send(userID);
 
   if(!req.user){
     res.redirect("/login");
   } else {
+    const userID = req.user._id;
     Project.find({userID: userID}).sort({createdAt: -1})   // ----> sort by creation time
     .then(projects => {
       res.render("project-views/user-center.hbs", {projects})
