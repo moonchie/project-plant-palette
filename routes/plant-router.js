@@ -44,6 +44,7 @@ plantRoutes.get("/plants/:id/save", (req, res, next) => {
         Project.find({userID:userID})
             .then(projects => {
                 //res.send(projects)
+                res.locals.plantID = req.params.id;
                 res.render("project-views/temp-list-projects.hbs", {projects})
             })
             .catch((err) => {next(err)})
@@ -56,11 +57,12 @@ plantRoutes.post("/plants/save/:projectID", (req, res, next) => {
     console.log(tempPlant)     //<---- this is an object
     //res.send(tempPlant.id);
     const projectID = req.params.projectID;
-    const plantID = tempPlant.id;
+    const plantID = req.body.plantID;
 
     Project.findByIdAndUpdate(
         projectID,
-        { $push: {plantArray: {plantID}}}
+        { $push: {plantArray: plantID},},
+        {new: true}
         )
         .then((projects) =>
         {res.send(projects)})
