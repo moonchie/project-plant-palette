@@ -5,7 +5,13 @@ const projectSchema = new Schema({
     projectName:{type: String, required: true },
     projectDescription: {type: String},
     location: {type: String, required: true},
-    plants: {type: Array}
+    userID: { type : "ObjectId", ref: "User", required:true},
+    plantArray: [
+        {
+            plantID: { type: String},
+            comments: {type: String}
+        }
+    ],
 },{
     timestamps: true
 });
