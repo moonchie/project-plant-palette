@@ -3,34 +3,32 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const plantSchema = new Schema ({
-  // document structure and rules definition here
+  // updated 05/07
   commonName: { type: String, required: true },
-  scientificName: { type: String, minlength: 8 },
-  plantType: ["annual", "broadleaf evergreen", "bulb", "Deciduous shrub", "epiphyte", "fern", "fruit", "herbaceous perennial", "needled evergreen", "orchid", "ornamental grass", "palm or cycad", "rush or sedge", "tree", "turfgrass", "vine"],
-  // ^^ SEARCH OPIONS, however,
-  // only one PLANTTYPE entered in database
-      // the user would put in only one zone, referenced by zip code
-    // which would correspond to plant's zone range
-  zoneMin: { type: Number, min: 1, max: 12},
-  zoneMax: { type: Number, min: 1, max: 12},
+  scientificName: {type: String},
+  family: {type: String},
+  plantType: [
+    {type: String}
+    ],
+  location: [{type: String}],
   sun: [
-    { type: String, enum: ["Full sun", "Part shade", "Full shade"] }
+    { type: String }
   ],
   water: [
-    { type: String, enum: ["Dry", "Medium", "Wet"] }
+    { type: String }
   ],
   growthRate: { type: String },
-  maxHeightInFeet: { type: Number },
-  maxWidthInFeet: { type: Number },
-  info: { type: String, required: true },
-  sourceInfo: { type: String },
+  maxHeightInFeet: { type: String },
+  toxicity: {type: String },
+  fertilityRequirement: {type: String},
+  bloomPeriod: {type: String},
   pictureUrl: { type: String}
 }, {
   // additional settings for schema here
-  timestamps: true
 
+  timestamps: true
 });
 
-const Plant = mongoose.model("Plant", plantSchema);
+const Plant = mongoose.model("plants", plantSchema);
 
 module.exports = Plant;

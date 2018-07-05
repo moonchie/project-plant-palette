@@ -2,17 +2,13 @@
 
 <h4>Scientific Name: {{plant.scientificName}}</h4>
 <img src="{{plant.pictureUrl}}" />
-<h4>Zone: {{plant.zoneMin}} to {{Oneplant.zoneMax}}</h4>
-<p>Water: {{#each plant.water}}
-    {{this}}
-    {{/each}}
-</p>
-<p>Sun: {{#each plant.sun}}
-    {{this}}
-    {{/each}}
-</p>
+<h4>Location: {{plant.location}}</h4>
+<p>Water: {{plant.water}}</p>
+<p>Sun: {{plant.water}}</p>
 <p>Growth Rate: {{plant.growthRate}}</p>
-<p>Description: {{plant.info}}</p>
+<p>Toxicity: {{plant.toxicity}}</p>
+<p>Fertility Requirement: {{plant.fertilityRequirement}}</p>
+<p>Bloom Period: {{plant.bloomPeriod}}</p>
 
 <nav>
     <a href="/center">Save to favourites</a>
