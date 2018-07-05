@@ -7,8 +7,11 @@
 <p>{{project.location}}</p>
 
 <p style="color:brown">Plants:</p>
-{{#each project.plants}}
-    <li>{{this}}</li>
+{{#each project.plantArray}}
+    <li>Scientific Name:{{this.scientificName}}</li>
+    <li>Common Name: {{this.commonName}}</li>
+    <li>Type: {{this.plantType}}</li>
+    <button><a href="/plants/{{this._id}}">see details</a></button>
 {{/each}}
 
 <br />

@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 // <---------- LISTS OF PLANTS -------------------------
 plantRoutes.get("/plants", (req, res, next) => {
     Plant.find().sort({_id: -1})
+    .limit(40)
     .then(plants => {
         //console.log(plants)
         res.render("plant-views/plants.hbs", {plants})
@@ -59,9 +60,9 @@ plantRoutes.post("/plants/save/:projectID", (req, res, next) => {
         {new: true}
         )
         .then(
-            res.direct("/project/:project._id")
             // message plants saved to project
-            //res.redirect("/plants"))
+            res.redirect(`/project/${projectID}`)
+
         )
 
         .catch((err) => next(err))

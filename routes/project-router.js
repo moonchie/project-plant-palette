@@ -76,6 +76,7 @@ projectRoutes.get("/project/:id", (req, res, next) => {
     res.redirect("/login");
   } else {
     Project.findById(project_id)
+      .populate('plantArray')
       .then((project) => {
         res.locals.project = project;
         res.render("project-views/project-details.hbs", {project})
